@@ -9,11 +9,14 @@ def sent_detector():
     response = emotion_detector(text_to_analyze)
     dominant_emotion =  response['dominant_emotion']
     response.popitem()
-    return "For the given statement, the system response is {}. The dominant emotion is {}.".format(response, dominant_emotion)
+    if response['anger'] is None:
+        return "Invalid input ! Try again."
+    else:
+        return "For the given statement, the system response is {}. The dominant emotion is {}.".format(response, dominant_emotion)
 
 @app.route("/")
 def render_index_page():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=3030)
